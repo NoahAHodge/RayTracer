@@ -18,7 +18,8 @@ bool hit_sphere(const point3& center, double radius, const ray& r) {
 // blue to white gradient depending on a ray's y coordinate
 color ray_color(const ray& r) {
     // add in red sphere
-    if (hit_sphere(point3(0,0,-1), 0.5, r)) {
+    if (hit_sphere(point3(0,0,-1), 0.5, r)) { 
+        // z decreasing pushes object further from camera, for now see object pos (behind cam)
         return color(1,0,0);
     }
 
