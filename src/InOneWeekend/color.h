@@ -5,6 +5,20 @@
 
 #include <iostream>
 
+using color = vec3;
 
+void write_color(std::ostream& out, const color& pixel_color) {
+    auto r = pixel_color.x();
+    auto g = pixel_color.y();
+    auto b = pixel_color.z();
+
+    // translate 0-1 to 0-255
+    int rbyte = int(255.99 * r);
+    int gbyte = int(255.99 * g);
+    int bbyte = int(255.99 * b);
+
+    // write out color components
+    out << rbyte << ' '  << gbyte << ' '  << bbyte << '\n';
+}
 
 #endif
