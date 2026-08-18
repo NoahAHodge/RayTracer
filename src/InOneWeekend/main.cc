@@ -7,16 +7,16 @@
 // given a sphere center point and a ray, return where the ray intersects the sphere
 double hit_sphere(const point3& center, double radius, const ray& r) {
     vec3 oc = center - r.origin(); // C - Q
-    // quadratic equation components
-    auto a = dot(r.direction(), r.direction());
-    auto b = -2.0 * dot(r.direction(), oc);
-    auto c = dot(oc, oc) - radius*radius;
-    auto discriminant = b*b - 4*a*c;
+    // streamlined quadratic equation components
+    auto a = r.direction().length_squared();
+    auto h = dot(r.direction(), oc); // where h = b/-2
+    auto c = oc.length_squared() - radius*radius;
+    auto discriminant = h*h - a*c;
 
     if (discriminant < 0) {
         return -1.0; // no intersection
     }
-    return (-b - std::sqrt(discriminant)) / (2.0 * a);
+    return (h - std::sqrt(discriminant)) / a;
 }
 
 // blue to white gradient depending on a ray's y coordinate
@@ -25,6 +25,7 @@ color ray_color(const ray& r) {
     // z decreasing pushes object further from camera, for now see object pos (behind cam)
     auto t = hit_sphere(point3(0,0,-1), 0.5, r);
     if (t > 0.0) { 
+        // color based on normal vectors
         vec3 N = unit_vector(r.at(t) - vec3(0,0,-1));
         return 0.5*color(N.x()+1,N.y()+1,N.z()+1);
     }
