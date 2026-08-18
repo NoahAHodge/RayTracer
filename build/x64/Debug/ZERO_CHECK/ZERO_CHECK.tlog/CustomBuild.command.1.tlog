@@ -1,0 +1,10 @@
+^C:\PERSONAL PROGRAMS\RAYTRACER\BUILD\CMAKEFILES\A4592F8DF7359DF35709CDA794F54F31\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Personal Programs/RayTracer" "-BC:/Personal Programs/RayTracer/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Personal Programs/RayTracer/build/RTWeekend.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

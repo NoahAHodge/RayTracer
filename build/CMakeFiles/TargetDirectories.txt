@@ -1,0 +1,3 @@
+C:/Personal Programs/RayTracer/build/CMakeFiles/inOneWeekend.dir
+C:/Personal Programs/RayTracer/build/CMakeFiles/ALL_BUILD.dir
+C:/Personal Programs/RayTracer/build/CMakeFiles/ZERO_CHECK.dir

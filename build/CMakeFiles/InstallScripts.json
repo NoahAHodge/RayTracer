@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Personal Programs/RayTracer/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
