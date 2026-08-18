@@ -4,8 +4,24 @@
 
 #include <iostream>>
 
+// given a sphere center point and a ray, return if the ray intersects with the sphere
+bool hit_sphere(const point3& center, double radius, const ray& r) {
+    vec3 oc = center - r.origin(); // C - Q
+    // quadratic equation components
+    auto a = dot(r.direction(), r.direction());
+    auto b = -2.0 * dot(r.direction(), oc);
+    auto c = dot(oc, oc) - radius*radius;
+    auto discriminant = b*b - 4*a*c;
+    return (discriminant >= 0);
+}
+
 // blue to white gradient depending on a ray's y coordinate
 color ray_color(const ray& r) {
+    // add in red sphere
+    if (hit_sphere(point3(0,0,-1), 0.5, r)) {
+        return color(1,0,0);
+    }
+
     vec3 unit_direction = unit_vector(r.direction());
     auto a = 0.5 * (unit_direction.y() + 1.0);
     // auto a = 0.5 * (unit_direction.x() + 1.0); // depending on ray's x coordinate
