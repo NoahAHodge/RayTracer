@@ -2,12 +2,13 @@
 #define SPHERE_H
 
 #include "hittable.h"
+#include "const.h"
 
 class sphere : public hittable {
     public:
     sphere(const point3& center, double radius) : center(center), radius(std::fmax(0,radius)) {}
 
-    bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) {
+    bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) const override{
         vec3 oc = center - r.origin(); // C - Q
         // streamlined quadratic equation components
         auto a = r.direction().length_squared();
