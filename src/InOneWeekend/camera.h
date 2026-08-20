@@ -12,6 +12,8 @@ class camera {
     int     samples_per_pixel   = 10;   // count of random samples for each pixel
     int     max_depth           = 10;   // max number of ray bounces into scene
 
+    double vfov = 90; // vertical fov
+
     void render(const hittable& world) {
         initialize();
 
@@ -51,7 +53,9 @@ class camera {
         center = point3(0,0,0);
 
         auto focal_length = 1.0;
-        auto viewport_height = 2.0;
+        auto theta = degress_to_radians(vfov);
+        auto h = std::tan(theta / 2);
+        auto viewport_height = 2.0 * h * focal_length;
         // find real ratio as rounding/min 1 can alter from idea aspect ratio
         auto viewport_width = viewport_height * (double (image_width) / image_height);
 
