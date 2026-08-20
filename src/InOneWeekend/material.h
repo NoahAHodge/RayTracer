@@ -60,10 +60,19 @@ class dielectric : public material {
         attenuation = color(1.0, 1.0, 1.0);
         double ri = rec.front_face ? (1.0/refractive_index) : refractive_index;
 
-        vec3 unit_diraction = unit_vector(r_in.direction());
-        vec3 refracted = refract(unit_diraction, rec.normal, ri);
+        vec3 unit_direction = unit_vector(r_in.direction());
+        double cos_theta = std::fmin(dot(-unit_direction, rec.normal), 1.0);
+        double sin_theta = std::sqrt(1.0 - cos_theta*cos_theta);
+
+        bool no_refract = ri * sin_theta > 1.0; // true if no sol under Snell's law
+        vec3 direction;
+
+        if (no_refract) 
+            direction = reflect(unit_direction, rec.normal);
+        else
+            direction = refract(unit_direction, rec.normal, ri);
         
-        scattered = ray(rec.p, refracted);
+        scattered = ray(rec.p, direction);
         return true;
     }
 
