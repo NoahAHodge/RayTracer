@@ -64,10 +64,10 @@ class dielectric : public material {
         double cos_theta = std::fmin(dot(-unit_direction, rec.normal), 1.0);
         double sin_theta = std::sqrt(1.0 - cos_theta*cos_theta);
 
-        bool no_refract = ri * sin_theta > 1.0; // true if no sol under Snell's law
+        bool can_refract = !(ri * sin_theta > 1.0); // true if solution under Snell's law
         vec3 direction;
 
-        if (no_refract) 
+        if (!can_refract || reflectance(cos_theta, ri) > random_double()) 
             direction = reflect(unit_direction, rec.normal);
         else
             direction = refract(unit_direction, rec.normal, ri);
@@ -79,6 +79,13 @@ class dielectric : public material {
     private:
     // RI in vacuum/air or ratio of material over enclosing RI
     double refractive_index;
+
+    static double reflectance(double cosine, double ri) {
+        // Schlick approximation for glass material
+        auto r0 = (1 - ri) / (1 + ri);
+        r0 = r0*r0;
+        return r0 + (1 - r0) * std::pow((1 - cosine), 5);
+    }
 };
 
 

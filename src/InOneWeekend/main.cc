@@ -11,7 +11,8 @@ int main(){
 
     auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
     auto material_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
-    auto material_left = make_shared<dielectric>(1.00 / 1.33); // simulated air buble in water
+    auto material_left = make_shared<dielectric>(1.50); // glass sphere
+    auto material_bubble = make_shared<dielectric>(1.00 / 1.50); // air bubble in glass sphere
     auto material_right = make_shared<metal>(color(0.8, 0.6, 0.2), 1.0);
     
     // ground
@@ -20,6 +21,8 @@ int main(){
     world.add(make_shared<sphere>(point3(0.0,0.0,-1.2), 0.5, material_center));
     // left sphere
     world.add(make_shared<sphere>(point3(-1.0,0.0,-1.0), 0.5, material_left));
+    // left sphere bubble
+    world.add(make_shared<sphere>(point3(-1.0,0.0,-1.0), 0.4, material_bubble));
     // right sphere
     world.add(make_shared<sphere>(point3(1.0,0.0,-1.0), 0.5, material_right));
 
